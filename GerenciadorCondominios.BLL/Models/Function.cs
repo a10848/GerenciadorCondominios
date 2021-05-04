@@ -7,5 +7,6 @@ namespace GerenciadorCondominios.BLL.Models
 {
     public class Function:IdentityRole<string>
     {
+        public string Descricao { get; set; }
     }
 }
