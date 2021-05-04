@@ -6,7 +6,7 @@ namespace GerenciadorCondominios.BLL.Models
 {
     public class Pagamento
     {
-        public int OagamentoId { get; set; }
+        public int PagamentoId { get; set; }
         public string UsuarioId { get; set; }
         public virtual User Usuario { get; set; }
         public int AluguelId { get; set; }
