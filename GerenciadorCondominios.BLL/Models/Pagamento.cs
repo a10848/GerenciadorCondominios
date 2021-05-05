@@ -8,7 +8,7 @@ namespace GerenciadorCondominios.BLL.Models
     {
         public int PagamentoId { get; set; }
         public string UsuarioId { get; set; }
-        public virtual User Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public int AluguelId { get; set; }
         public Aluguel Aluguel { get; set; }
         public DateTime? DataPagamento { get; set; }

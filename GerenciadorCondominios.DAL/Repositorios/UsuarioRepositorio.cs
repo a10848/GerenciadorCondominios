@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace GerenciadorCondominios.DAL.Repositorios
 {
-    public class UsuarioRepositorio : RepositorioGenerico<User>, IUsuarioRepositorio
+    public class UsuarioRepositorio : RepositorioGenerico<Usuario>, IUsuarioRepositorio
     {
         private readonly Context _contexto;
-        private readonly UserManager<User> _gerenciadorUsuarios;
-        private readonly SignInManager<User> _gerenciadorLogin;
+        private readonly UserManager<Usuario> _gerenciadorUsuarios;
+        private readonly SignInManager<Usuario> _gerenciadorLogin;
         
-        public UsuarioRepositorio(Context contexto, UserManager<User> gerenciadorUsuario, SignInManager<User> gerenciadorLogin) : base(contexto)
+        public UsuarioRepositorio(Context contexto, UserManager<Usuario> gerenciadorUsuario, SignInManager<Usuario> gerenciadorLogin) : base(contexto)
         {
             _contexto = contexto;
             _gerenciadorUsuarios = gerenciadorUsuario;
             _gerenciadorLogin = gerenciadorLogin;
         }
 
-        public async Task<IdentityResult> CriarUsuario(User usuario, string senha)
+        public async Task<IdentityResult> CriarUsuario(Usuario usuario, string senha)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace GerenciadorCondominios.DAL.Repositorios
             }
         }
 
-        public async Task IncluirUsuarioEmFuncao(User usuario, string funcao)
+        public async Task IncluirUsuarioEmFuncao(Usuario usuario, string funcao)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace GerenciadorCondominios.DAL.Repositorios
             }
         }
 
-        public async Task LogarUsuario(User usuario, bool lembrar)
+        public async Task LogarUsuario(Usuario usuario, bool lembrar)
         {
             try
             {

@@ -7,9 +7,9 @@ using System.Text;
 
 namespace GerenciadorCondominios.DAL.Mapeamentos
 {
-    public class UsuarioMap : IEntityTypeConfiguration<User>
+    public class UsuarioMap : IEntityTypeConfiguration<Usuario>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             builder.Property(u => u.Id).ValueGeneratedOnAdd();
             builder.Property(u => u.CPF).IsRequired().HasMaxLength(30);

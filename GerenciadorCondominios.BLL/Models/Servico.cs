@@ -11,7 +11,7 @@ namespace GerenciadorCondominios.BLL.Models
         public decimal Valor { get; set; }
         public StatusServico Status { get; set; }
         public string UsuarioId { get; set; }
-        public virtual User Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public ICollection<ServicoPredio> ServicoPredios { get; set; }
     }
 

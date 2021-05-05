@@ -16,6 +16,6 @@ namespace GerenciadorCondominios.BLL.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime Data { get; set; }
         public string UsuarioId { get; set; }
-        public virtual User Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

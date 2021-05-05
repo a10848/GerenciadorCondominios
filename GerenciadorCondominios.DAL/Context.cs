@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GerenciadorCondominios.DAL
 {
-    public class Context:IdentityDbContext<User,Function,string>
+    public class Context:IdentityDbContext<Usuario,Function,string>
     {
         public DbSet<Aluguel> Alugueis { get; set; }
         public DbSet<Apartamento> Apartamentos { get; set; }
@@ -19,7 +19,7 @@ namespace GerenciadorCondominios.DAL
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Servico> Servicos { get; set; }
         public DbSet<ServicoPredio> ServicoPredios { get; set; }
-        public DbSet<User> Usuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Veiculo> Veiculos { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options)

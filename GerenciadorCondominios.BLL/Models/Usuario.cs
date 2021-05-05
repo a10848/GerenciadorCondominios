@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GerenciadorCondominios.BLL.Models
 {
-    public class User : IdentityUser<string>
+    public class Usuario : IdentityUser<string>
     {
         public string CPF { get; set; }
         public string Foto { get; set; }

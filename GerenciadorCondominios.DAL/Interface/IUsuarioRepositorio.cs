@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GerenciadorCondominios.DAL.Interface
 {
-    public interface IUsuarioRepositorio : IRepositorioGenerico<User>
+    public interface IUsuarioRepositorio : IRepositorioGenerico<Usuario>
     {
         int VerificarSeExisteRegistro();
 
-        Task LogarUsuario(User usuario, bool lembrar);
-        Task<IdentityResult> CriarUsuario(User usuario, string senha);
-        Task IncluirUsuarioEmFuncao(User usuario, string funcao);
+        Task LogarUsuario(Usuario usuario, bool lembrar);
+        Task<IdentityResult> CriarUsuario(Usuario usuario, string senha);
+        Task IncluirUsuarioEmFuncao(Usuario usuario, string funcao);
     }
 }

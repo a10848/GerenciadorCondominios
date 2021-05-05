@@ -1,4 +1,7 @@
+using GerenciadorCondominios.BLL.Models;
 using GerenciadorCondominios.DAL;
+using GerenciadorCondominios.DAL.Interface;
+using GerenciadorCondominios.DAL.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +30,13 @@ namespace GerenciadorCondominios
         {
             services.AddDbContext<Context>(options => options.UseMySql(Configuration.GetConnectionString("ConectionDB")));
 
+            services.AddIdentity<Usuario, Function>().AddEntityFrameworkStores<Context>();
+
+            services.AddAuthentication();
+            services.AddAuthorization();
+
+            services.AddTransient<IUsuarioRepositorio, UsuarioRepositorio>();
+
             services.AddControllersWithViews();
         }
 
@@ -44,9 +54,12 @@ namespace GerenciadorCondominios
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
