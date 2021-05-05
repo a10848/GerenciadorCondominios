@@ -48,7 +48,7 @@ namespace GerenciadorCondominios.Controllers
                     string diretorioPasta = Path.Combine(_webHostEnvironment.WebRootPath, "Imagens");
                     string nomeFoto = Guid.NewGuid().ToString() + foto.FileName;
 
-                    using(FileStream fileStream = new FileStream(Path.Combine(diretorioPasta, nomeFoto), FileMode.Create))
+                    using (FileStream fileStream = new FileStream(Path.Combine(diretorioPasta, nomeFoto), FileMode.Create))
                     {
                         await foto.CopyToAsync(fileStream);
                         model.Foto = "~/Imagens/" + nomeFoto;
@@ -104,6 +104,74 @@ namespace GerenciadorCondominios.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                await _usuarioRepositorio.DeslogarUsuario();
+            }
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = await _usuarioRepositorio.PegarUsuarioPeloEmail(model.Email);
+
+                if (usuario != null)
+                {
+                    if (usuario.Status == StatusConta.Analisando)
+                    {
+                        return View("Analise", usuario.UserName);
+                    }
+                    else if (usuario.Status == StatusConta.Reprovado)
+                    {
+                        return View("Reprovado", usuario.UserName);
+                    }
+                    else if (usuario.PrimeiroAcesso == true)
+                    {
+                        return View("RedefinirSenha", usuario.UserName);
+                    }
+                    else
+                    {
+                        PasswordHasher<Usuario> passwordHasher = new PasswordHasher<Usuario>();
+
+                        if (passwordHasher.VerifyHashedPassword(usuario, usuario.PasswordHash, model.Senha) != PasswordVerificationResult.Failed)
+                        {
+                            await _usuarioRepositorio.LogarUsuario(usuario, false);
+
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Usuario e/ou senha inválidos");
+
+                            return View(model);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Usuario e/ou senha inválidos");
+
+                    return View(model);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            await _usuarioRepositorio.DeslogarUsuario();
+            return RedirectToAction("Login");
         }
 
         public IActionResult Analise(string nome)
